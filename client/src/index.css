@@ -1,0 +1,21 @@
+@import "tailwindcss";
+:root {
+  --bg: #121212;
+  --bg-alt: #1e1e1e;
+  --surface: #242424;
+  --text: #e0e0e0;
+  --accent: #0095f6;
+}
+
+.dark {
+  --bg: #000;
+  --bg-alt: #111;
+  --surface: #1a1a1a;
+  --text: #fafafa;
+  --accent: #0095f6;
+}
+
+/* Apply the background and text colors globally */
+body {
+  @apply bg-[var(--bg)] text-[var(--text)];
+}
