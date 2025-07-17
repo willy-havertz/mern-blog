@@ -75,3 +75,4 @@ server/*.pid.lock
 
 # Misc
 server/.cache/
+server/.env
