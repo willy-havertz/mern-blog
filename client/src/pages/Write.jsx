@@ -6,6 +6,7 @@ import API from "../services/api";
 export default function Write() {
   const { user } = useAuth();
   const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
@@ -18,35 +19,37 @@ export default function Write() {
   }, [user, navigate]);
 
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-      setPreview(URL.createObjectURL(selectedFile));
+    const selected = e.target.files[0];
+    if (selected) {
+      setFile(selected);
+      setPreview(URL.createObjectURL(selected));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!title || !desc) return;
+    if (!title.trim() || !desc.trim()) return;
 
-    let photoFilename = null;
+    let photoUrl = "";
 
     if (file) {
-      const data = new FormData();
-      data.append("file", file);
+      const formData = new FormData();
+      formData.append("file", file);
+
       setUploading(true);
       try {
-        const uploadRes = await API.post("/upload", data, {
-          onUploadProgress: (progressEvent) => {
-            const percent = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            );
+        const uploadRes = await API.post("/upload", formData, {
+          onUploadProgress: (evt) => {
+            const percent = Math.round((evt.loaded * 100) / evt.total);
             setUploadProgress(percent);
           },
         });
-        photoFilename = uploadRes.data.filename;
+        photoUrl = uploadRes.data.url; // Cloudinary URL
       } catch (err) {
         console.error("Upload failed:", err);
+        alert("Image upload failed");
+        setUploading(false);
+        return;
       } finally {
         setUploading(false);
       }
@@ -56,7 +59,7 @@ export default function Write() {
       const res = await API.post("/posts", {
         title,
         desc,
-        photo: photoFilename,
+        photo: photoUrl,
         username: user.username,
       });
 
@@ -65,6 +68,7 @@ export default function Write() {
       }
     } catch (err) {
       console.error("Post creation failed:", err);
+      alert("Could not create post");
     }
   };
 
@@ -73,6 +77,7 @@ export default function Write() {
       <h2 className="text-2xl font-bold text-[var(--text)] mb-6">
         Create a New Post
       </h2>
+
       <form
         onSubmit={handleSubmit}
         className="space-y-6 bg-[var(--surface)] p-6 rounded-lg shadow"
@@ -104,7 +109,7 @@ export default function Write() {
               <div
                 className="bg-[var(--accent)] h-2.5 rounded-full transition-all duration-300"
                 style={{ width: `${uploadProgress}%` }}
-              ></div>
+              />
             </div>
           )}
 
@@ -152,7 +157,7 @@ export default function Write() {
           disabled={uploading}
           className="w-full bg-[var(--accent)] text-white py-2 rounded-md font-medium hover:opacity-90 transition"
         >
-          {uploading ? "Uploading..." : "Publish Post"}
+          {uploading ? `Uploading… ${uploadProgress}%` : "Publish Post"}
         </button>
       </form>
     </div>

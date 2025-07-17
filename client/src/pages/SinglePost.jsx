@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import API from "../services/api";
+import API, { getImageUrl } from "../services/api";
 import Navbar from "../components/NavBar";
 
 export default function SinglePost() {
@@ -21,7 +21,7 @@ export default function SinglePost() {
       username: post.username,
       text,
     });
-    setComments([...comments, { username: post.username, text }]);
+    setComments((prev) => [...prev, { username: post.username, text }]);
     setText("");
   };
 
@@ -29,16 +29,20 @@ export default function SinglePost() {
     <>
       <Navbar />
       <div className="max-w-4xl mx-auto p-6 mt-6 bg-gray-900 text-white rounded-xl shadow-lg">
+        {/* IMAGE */}
         {post.photo && (
           <img
-            src={`http://localhost:5000/uploads/${post.photo}`}
+            src={getImageUrl(post.photo)}
             alt={post.title}
             className="w-full h-64 object-cover rounded-lg mb-6"
           />
         )}
+
+        {/* TITLE & BODY */}
         <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
         <p className="text-gray-300 text-lg leading-relaxed">{post.desc}</p>
 
+        {/* COMMENTS */}
         <div className="mt-10 border-t border-gray-700 pt-6">
           <h3 className="text-2xl font-semibold mb-4">Comments</h3>
 

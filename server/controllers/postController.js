@@ -1,9 +1,7 @@
+import Post from "../models/Post.js";
 
-const Post = require("../models/Post");
-
-exports.createPost = async (req, res) => {
+export const createPost = async (req, res) => {
   try {
-
     const { username } = req.user;
     const newPost = new Post({
       ...req.body,
@@ -14,11 +12,13 @@ exports.createPost = async (req, res) => {
     res.status(201).json(saved);
   } catch (err) {
     console.error("createPost error:", err);
-    res.status(500).json({ error: "Could not create post",details: err.message });
+    res
+      .status(500)
+      .json({ error: "Could not create post", details: err.message });
   }
 };
 
-exports.updatePost = async (req, res) => {
+export const updatePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (post.username !== req.user.username)
@@ -36,14 +36,13 @@ exports.updatePost = async (req, res) => {
   }
 };
 
-
-exports.deletePost = async (req, res) => {
+export const deletePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (post.username !== req.user.username)
       return res.status(401).json("Not allowed");
 
-    await post.delete();
+    await post.deleteOne();
     res.json("Post removed");
   } catch (err) {
     console.error("deletePost error:", err);
@@ -51,8 +50,7 @@ exports.deletePost = async (req, res) => {
   }
 };
 
-
-exports.getPost = async (req, res) => {
+export const getPost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     res.json(post);
@@ -62,8 +60,7 @@ exports.getPost = async (req, res) => {
   }
 };
 
-
-exports.getAllPosts = async (req, res) => {
+export const getAllPosts = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 5;
   const search = req.query.search || "";
@@ -74,6 +71,7 @@ exports.getAllPosts = async (req, res) => {
       .skip((page - 1) * limit)
       .limit(limit)
       .sort({ createdAt: -1 });
+
     const total = await Post.countDocuments(filter);
 
     res.json({

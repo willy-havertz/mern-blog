@@ -1,19 +1,19 @@
-
-const express = require("express");
-const path = require("path"); 
-const upload = require("../utils/multer");
+import express from "express";
+import multer from "multer";
+import { storage } from "../config/cloudinary.js";
 
 const router = express.Router();
+const upload = multer({ storage });
 
-router.post("/", (req, res) => {
-  // Use the single-file middleware directly
-  upload.single("file")(req, res, (err) => {
-    if (err) {
-      console.error("Upload error:", err);
-      return res.status(500).json({ error: err.message });
-    }
-    res.status(200).json({ filename: path.basename(req.file.path) });
+router.post("/", upload.single("file"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: "No file uploaded" });
+  }
+ 
+  res.status(200).json({
+    url: req.file.path,
+    filename: req.file.filename,
   });
 });
 
-module.exports = router;
+export default router;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import API from "../services/api";
+import API, { getImageUrl } from "../services/api";
 import usePagination from "../hooks/usePagination";
 import Navbar from "../components/NavBar";
 
@@ -18,6 +18,7 @@ export default function Home() {
     <>
       <Navbar />
       <div className="max-w-6xl mx-auto p-6">
+        {/* Search bar */}
         <div className="mb-6">
           <input
             className="w-full px-4 py-3 rounded-lg border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -28,6 +29,7 @@ export default function Home() {
           />
         </div>
 
+        {/* Posts grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {data.posts.map((post) => (
             <Link
@@ -37,7 +39,7 @@ export default function Home() {
             >
               {post.photo && (
                 <img
-                  src={`http://localhost:5000/uploads/${post.photo}`}
+                  src={getImageUrl(post.photo)}
                   alt={post.title}
                   className="w-full h-48 object-cover"
                 />
@@ -56,6 +58,7 @@ export default function Home() {
           ))}
         </div>
 
+        {/* Pagination */}
         {data.pages > 1 && (
           <div className="flex justify-center mt-10">
             <div className="inline-flex gap-2">
