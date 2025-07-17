@@ -1,0 +1,77 @@
+
+
+node_modules/
+
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+
+dist/
+build/
+out/
+
+
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+logs/
+*.log
+
+
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/
+
+
+*.tmp
+*.temp
+*.sw?
+*.pid
+*.seed
+
+
+
+# Vite build cache
+.vite/
+
+# Production build folder
+client/dist/
+client/build/
+
+# Environment files (if you ever use .env in client)
+client/.env
+client/.env.local
+client/.env.*.local
+
+
+
+# Node dependencies
+server/node_modules/
+
+# Environment files
+server/.env
+server/.env.local
+server/.env.*.local
+server/.env.example      # optional: track example but ignore real ones
+
+# Build outputs (if using TS or Babel)
+server/dist/
+server/build/
+
+# Coverage & test reports
+server/coverage/
+server/**/*.lcov
+
+# Logs
+server/logs/
+server/*.log
+
+# Runtime files
+server/pids/
+server/*.pid.lock
+
+# Misc
+server/.cache/

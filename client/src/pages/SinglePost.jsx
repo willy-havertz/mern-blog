@@ -15,6 +15,7 @@ export default function SinglePost() {
   }, [id]);
 
   const submitComment = async () => {
+    if (!text.trim()) return;
     await API.post("/comments", {
       postId: id,
       username: post.username,
@@ -27,44 +28,47 @@ export default function SinglePost() {
   return (
     <>
       <Navbar />
-      <div className="max-w-3xl mx-auto p-4 bg-[var(--surface)] rounded-lg">
+      <div className="max-w-4xl mx-auto p-6 mt-6 bg-gray-900 text-white rounded-xl shadow-lg">
         {post.photo && (
           <img
             src={`http://localhost:5000/uploads/${post.photo}`}
             alt={post.title}
-            className="w-full h-80 object-cover rounded-t-lg"
+            className="w-full h-64 object-cover rounded-lg mb-6"
           />
         )}
-        <div className="p-4">
-          <h1 className="text-3xl font-bold text-[var(--text)] mb-2">
-            {post.title}
-          </h1>
-          <p className="text-[var(--text)]">{post.desc}</p>
-        </div>
+        <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+        <p className="text-gray-300 text-lg leading-relaxed">{post.desc}</p>
 
-        <section className="mt-6 p-4 border-t border-gray-700">
-          <h3 className="text-xl text-[var(--text)] mb-2">Comments</h3>
-          {comments.map((c, i) => (
-            <div key={i} className="mb-2 text-[var(--text)]">
-              <b className="mr-1">{c.username}:</b> {c.text}
-            </div>
-          ))}
+        <div className="mt-10 border-t border-gray-700 pt-6">
+          <h3 className="text-2xl font-semibold mb-4">Comments</h3>
 
-          <div className="flex space-x-2 mt-4">
+          <div className="space-y-3 mb-6">
+            {comments.map((c, i) => (
+              <div
+                key={i}
+                className="bg-gray-800 px-4 py-3 rounded-md text-gray-100"
+              >
+                <span className="font-bold">{c.username}</span>: {c.text}
+              </div>
+            ))}
+          </div>
+
+          <div className="flex items-center space-x-3">
             <input
-              className="flex-grow p-2 bg-[var(--bg-alt)] text-[var(--text)] rounded border border-gray-700"
+              type="text"
+              className="flex-grow p-3 rounded-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="Write a comment..."
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
             <button
-              className="px-4 py-2 bg-[var(--accent)] text-black rounded font-semibold"
               onClick={submitComment}
+              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md"
             >
               Submit
             </button>
           </div>
-        </section>
+        </div>
       </div>
     </>
   );
