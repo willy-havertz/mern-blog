@@ -49,8 +49,6 @@ mern-blog/
 | Build | ✅      |
 | Deploy | ✅     |
 
-![CI/CD Pipeline](./screenshot/backend.png)
-![CI/CD Pipeline](./screenshot/frontend.png)
 
 ## 📊 Monitoring
 
@@ -70,6 +68,7 @@ Create `.env` files in `client/` and `server/` based on the provided `.env.examp
 |-------------|------------|
 | Home Page | ![home](./screenshot/Home.png) |
 | CI/CD Logs | ![ci](./screenshot/backend.png) |
+| CI/CD Logs | ![ci](./screenshot/frontend.png) |
 
 ## 🛠️ Deployment Steps
 
