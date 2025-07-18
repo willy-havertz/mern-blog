@@ -68,8 +68,8 @@ Create `.env` files in `client/` and `server/` based on the provided `.env.examp
 
 | Description | Screenshot |
 |-------------|------------|
-| Home Page | ![home](./screenshots/home.png) |
-| CI/CD Logs | ![ci](./screenshots/cicd.png) |
+| Home Page | ![home](./screenshot/Home.png) |
+| CI/CD Logs | ![ci](./screenshot/backend.png) |
 
 ## 🛠️ Deployment Steps
 
