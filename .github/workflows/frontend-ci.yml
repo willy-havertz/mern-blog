@@ -1,0 +1,35 @@
+name: Frontend CI
+
+on:
+  push:
+    paths:
+      - "client/**"
+  pull_request:
+    paths:
+      - "client/**"
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./client
+
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: ✅ Run tests
+        run: npm test -- --watchAll=false
+
+      - name: 🛠️ Build
+        run: npm run build
