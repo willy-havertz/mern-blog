@@ -1,62 +1,92 @@
-# 📝 MERN Blog Application
+# 🌐 MERN Blog Application
 
-A full-stack blogging platform built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js). This application features a secure backend API and a modern, responsive frontend with **Instagram-like dark mode** styling using **Tailwind CSS**.
+A full-stack blog platform built with MongoDB, Express.js, React, and Node.js.
 
-Users can register/login, create/edit blog posts with images, add comments, and filter content by categories. Admins and authors have different permissions, and all interactions follow RESTful API principles with **JWT authentication**, **Multer image uploads**, **search**, **pagination**, and more.
+## 🚀 Live Deployment
 
----
+- **Frontend**: [Vercel Link](https://mern-blog-azure.vercel.app/)
+- **Backend API**: [Render Link](https://mern-blog-qewr.onrender.com)
 
-## 🚀 Features
+## 📁 Project Structure
+```bash
+mern-blog/
+├── client/                  # React frontend
+│   ├── public/
+│   ├── src/
+│   ├── .env.example
+│   └── package.json
+├── server/                  # Express backend
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── .env.example
+│   ├── server.js
+│   └── package.json
+├── .github/
+│   └── workflows/
+│       └── deploy.yml       # CI/CD pipeline
+├── README.md
+└── .gitignore
+```
 
-- 🔐 **User Authentication** (JWT)
-- 📝 **Create, Read, Update, Delete (CRUD)** Blog Posts
-- 💬 **Comment System** (with delete support for admins/authors)
-- 🏷️ **Categories & Filtering**
-- 🔎 **Search & Pagination**
-- 🖼️ **Image Uploads with Preview** (Multer)
-- 🌗 **Dark Mode (Instagram-like)**
-- 📱 **Responsive Design**
-- 👤 **User Roles**: Admin & Author
-- 🧠 **RESTful API** with secure route access
 
----
+## ⚙️ Technologies
+- MongoDB (Atlas)
+- Express.js
+- React.js (Vite)
+- Node.js
+- Cloudinary
+- GitHub Actions
+- Vercel + Render
 
-## 🛠️ Technologies Used
+## 📦 CI/CD Pipeline
 
-- **MongoDB** – Document-based NoSQL database
-- **Express.js** – Backend web framework for Node.js
-- **React.js (via Vite)** – Frontend UI framework
-- **Node.js** – JavaScript runtime for backend
-- **Tailwind CSS** – Modern utility-first styling framework (dark mode supported)
-- **JWT (JSON Web Tokens)** – Secure token-based auth
-- **Multer** – Middleware for file/image uploads
-- **Axios / Fetch** – HTTP client for frontend API requests
-- **bcryptjs** – Password hashing
-- **React Context (optional)** – Global auth state management
+| Stage | Status |
+|-------|--------|
+| Lint  | ✅      |
+| Test  | ✅      |
+| Build | ✅      |
+| Deploy | ✅     |
 
----
+![CI/CD Pipeline](./screenshots/cicd.png)
 
-## 📁 Folder Structure
+## 📊 Monitoring
 
-├── server/                   # Express server (Node.js)
-│   ├── controllers/           # Route controllers (logic for each endpoint)
-│   ├── middleware/            # Authentication and other middleware
-│   ├── models/                # Mongoose data models (User, Post, Comment, Category)
-│   ├── routes/                # Express route definitions
-│   ├── uploads/               # Uploaded images storage (e.g. /public/uploads)
-│   ├── .env                   # Backend environment variables (e.g. MONGO_URI, JWT_SECRET)
-│   ├── server.js              # Entry point to start the server
-│   └── package.json           # Backend dependencies and scripts
-│
-└── client/                  # React app (Vite)
-    ├── public/
-    │   └── index.html         # HTML template
-    ├── src/
-    │   ├── components/        # Reusable UI components (Navbar, PostList, etc.)
-    │   ├── pages/             # Page components (Home, Login, Dashboard, etc.)
-    │   ├── context/          # (Optional) React context providers (e.g. AuthContext)
-    │   ├── App.jsx            # Main React component
-    │   └── main.jsx           # Application entry (render to DOM)
-    ├── tailwind.config.js     # Tailwind CSS configuration
-    ├── package.json           # Frontend dependencies and scripts
-    └── .env.local             # Frontend environment variables (e.g. VITE_API_URL)
+We use:
+- **Render Monitoring** (logs, memory, uptime)
+- **Health Check API** at `/api/health`
+- **Sentry** for error tracking (optional)
+- **Vercel Analytics** for frontend performance
+
+## 📁 .env Setup
+
+Create `.env` files in `client/` and `server/` based on the provided `.env.example`.
+
+## 📸 Screenshots
+
+| Description | Screenshot |
+|-------------|------------|
+| Home Page | ![home](./screenshots/home.png) |
+| CI/CD Logs | ![ci](./screenshots/cicd.png) |
+
+## 🛠️ Deployment Steps
+
+### Frontend
+- Auto-deployed from `main` branch to [Vercel](https://vercel.com)
+
+### Backend
+- Auto-deployed from `main` branch to [Render](https://render.com)
+
+## 🧪 Testing
+Run tests with:
+
+```bash
+# Client
+cd client
+npm test
+
+# Server
+cd server
+npm test
