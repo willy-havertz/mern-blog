@@ -5,7 +5,6 @@ A full-stack blog platform built with MongoDB, Express.js, React, and Node.js.
 ## 🚀 Live Deployment
 
 - **Frontend**: [Vercel Link](https://mern-blog-azure.vercel.app/)
-- **Backend API**: [Render Link](https://mern-blog-qewr.onrender.com)
 
 ## 📁 Project Structure
 ```bash
@@ -50,7 +49,8 @@ mern-blog/
 | Build | ✅      |
 | Deploy | ✅     |
 
-![CI/CD Pipeline](./screenshots/cicd.png)
+![CI/CD Pipeline](./screenshot/backend.png)
+![CI/CD Pipeline](./screenshot/frontend.png)
 
 ## 📊 Monitoring
 
